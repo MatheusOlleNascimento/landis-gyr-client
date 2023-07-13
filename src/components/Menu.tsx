@@ -87,6 +87,12 @@ function Menu() {
     }
   }
 
+  async function HandleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      await FindConsumerUnit();
+    }
+  }
+
   function EditMeterNumber(meterNumber: string) {
     const value = parseInt(meterNumber);
 
@@ -160,8 +166,7 @@ function Menu() {
           className="input"
           placeholder="SerialNumber"
           value={serialNumber}
-          disabled={modalText != "Insert"}
-          onBlur={() => FindConsumerUnit()}
+          onKeyPress={HandleKeyPress}
           onChange={(e) => setSerialNumber(e.target.value)}
         />
         <select
