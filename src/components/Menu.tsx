@@ -8,24 +8,30 @@ import { useState } from "react";
 type ModalType = "Insert" | "Edit" | "Delete" | "List" | "Find";
 
 function Menu() {
+  //ToDo create modal of confirmation operation
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalText, setModalText] = useState<ModalType>("Insert");
 
-  const [serialNumber, setSerialNumber] = useState<string>();
+  const [serialNumber, setSerialNumber] = useState<string>("");
 
-  const [meterId, setMeterId] = useState<number>();
-  const [meterNumber, setMeterNumber] = useState<number>();
-  const [meterFirmwareVersion, setMeterFirmwareVersion] = useState<string>();
+  const [meterId, setMeterId] = useState<Interfaces.MeterModel>(16);
+  const [meterNumber, setMeterNumber] = useState<number>(0);
+  const [meterFirmwareVersion, setMeterFirmwareVersion] = useState<string>("");
 
-  const [switchState, setSwitchState] = useState<number>();
+  const [switchState, setSwitchState] = useState<Interfaces.SwitchState>(0);
 
-  // Service logic
+  //ToDo isolate services logic
 
   async function CreateConsumerUnit() {
     const consumerUnit: Interfaces.ConsumerUnit = {
-      SerialNumber: "Teste",
-      Meter: { Id: 16, Number: 1, FirmwareVersion: "0.0001" },
-      SwitchState: 0,
+      SerialNumber: serialNumber,
+      Meter: {
+        Id: meterId,
+        Number: meterNumber,
+        FirmwareVersion: meterFirmwareVersion,
+      },
+      SwitchState: switchState,
     };
 
     const response = await Services.CreateConsumerUnit(consumerUnit);
@@ -35,9 +41,6 @@ function Menu() {
   }
 
   async function EditConsumerUnit() {
-    const serialNumber = "Teste";
-    const switchState = 0;
-
     const response = await Services.EditConsumerUnit(serialNumber, switchState);
 
     setModalOpen(false);
@@ -45,8 +48,6 @@ function Menu() {
   }
 
   async function DeleteConsumerUnit() {
-    const serialNumber = "Teste";
-
     const response = await Services.DeleteConsumerUnit(serialNumber);
 
     setModalOpen(false);
@@ -54,8 +55,6 @@ function Menu() {
   }
 
   async function FindConsumerUnit() {
-    const serialNumber = "Teste";
-
     const response = await Services.FindConsumerUnit(serialNumber);
 
     setModalOpen(false);
@@ -69,7 +68,7 @@ function Menu() {
     console.log(response);
   }
 
-  //Inputs logic
+  //ToDo isolate inputs logic
 
   function EditMeterId(meterId: string) {
     const value = parseInt(meterId);
@@ -132,6 +131,8 @@ function Menu() {
         break;
     }
   }
+
+  //ToDo isolate in components
 
   return (
     <>
