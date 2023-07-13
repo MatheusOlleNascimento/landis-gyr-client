@@ -14,15 +14,50 @@ function Menu() {
     console.log(response);
   }
 
+  async function EditConsumerUnit() {
+    const serialNumber = "Teste";
+    const switchState = 0;
+
+    const response = await Services.EditConsumerUnit(serialNumber, switchState);
+    console.log(response);
+  }
+
+  async function DeleteConsumerUnit() {
+    const serialNumber = "Teste";
+
+    const response = await Services.DeleteConsumerUnit(serialNumber);
+    console.log(response);
+  }
+
+  async function ListConsumerUnits() {
+    const response = await Services.ListConsumerUnits();
+    console.log(response);
+  }
+
+  async function FindConsumerUnitFromCache() {
+    const serialNumber = "Teste";
+
+    const response = await Services.FindConsumerUnit(serialNumber);
+    console.log(response);
+  }
+
   return (
     <div className="buttons">
       <button className="button" onClick={CreateConsumerUnit}>
         Insert a new endpoint
       </button>
-      <button className="button">Edit an existing endpoint</button>
-      <button className="button">Delete an existing endpoint</button>
-      <button className="button">List all endpoints</button>
-      <button className="button">Find a endpoint</button>
+      <button className="button" onClick={EditConsumerUnit}>
+        Edit an existing endpoint
+      </button>
+      <button className="button" onClick={DeleteConsumerUnit}>
+        Delete an existing endpoint
+      </button>
+      <button className="button" onClick={ListConsumerUnits}>
+        List all endpoints
+      </button>
+      <button className="button" onClick={FindConsumerUnitFromCache}>
+        Find a endpoint
+      </button>
       <button className="button" onClick={() => window.close()}>
         Exit
       </button>

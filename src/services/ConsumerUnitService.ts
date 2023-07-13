@@ -25,6 +25,6 @@ export async function ListConsumerUnits() {
   return await api.get("ConsumerUnit/list");
 }
 
-export async function FindConsumerUnitFromCache(serialNumber: string) {
+export async function FindConsumerUnit(serialNumber: string) {
   return await api.get(`ConsumerUnit/find?serialNumber=${serialNumber}`);
 }
