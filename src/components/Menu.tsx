@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import * as Services from "../services/ConsumerUnitService";
 import * as Interfaces from "../interfaces/interfaces";
+import { AxiosResponse } from "axios";
 
 function Menu() {
   async function CreateConsumerUnit() {
@@ -11,7 +14,7 @@ function Menu() {
     };
 
     const response = await Services.CreateConsumerUnit(consumerUnit);
-    console.log(response);
+    VerifyResponse(response);
   }
 
   async function EditConsumerUnit() {
@@ -19,26 +22,32 @@ function Menu() {
     const switchState = 0;
 
     const response = await Services.EditConsumerUnit(serialNumber, switchState);
-    console.log(response);
+    VerifyResponse(response);
   }
 
   async function DeleteConsumerUnit() {
     const serialNumber = "Teste";
 
     const response = await Services.DeleteConsumerUnit(serialNumber);
-    console.log(response);
+    VerifyResponse(response);
   }
 
   async function ListConsumerUnits() {
     const response = await Services.ListConsumerUnits();
-    console.log(response);
+    VerifyResponse(response);
   }
 
   async function FindConsumerUnitFromCache() {
     const serialNumber = "Teste";
 
     const response = await Services.FindConsumerUnit(serialNumber);
-    console.log(response);
+    VerifyResponse(response);
+  }
+
+  function VerifyResponse(response: AxiosResponse | void) {
+    if (response) {
+      console.log(response);
+    }
   }
 
   return (
